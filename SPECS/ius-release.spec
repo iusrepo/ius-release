@@ -1,7 +1,7 @@
 
 Name:           ius-release       
 Version:        1.0 
-Release:        10.ius%{?dist}
+Release:        11.ius%{?dist}
 
 Summary:        IUS Community Project repository configuration
 
@@ -23,6 +23,15 @@ Source9:        ius-dev.repo.el6
 Source10:       ius-archive.repo.el4
 Source11:       ius-archive.repo.el5
 Source12:       ius-archive.repo.el6
+
+Source13:       ius.repo.centos5
+Source14:       ius.repo.centos6
+Source15:       ius-testing.repo.centos5
+Source16:       ius-testing.repo.centos6
+Source17:       ius-dev.repo.centos5	
+Source18:       ius-dev.repo.centos6	
+Source19:       ius-archive.repo.centos5
+Source20:       ius-archive.repo.centos6
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -70,7 +79,19 @@ install -pm 644 %{SOURCE3} \
 install -pm 644 %{SOURCE10} \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
 %endif
+
 %if 0%{?el5}
+if [ %{?dist} == .centos5 ] # hacky...
+then
+install -pm 644 %{SOURCE13} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
+install -pm 644 %{SOURCE15} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-testing.repo
+install -pm 644 %{SOURCE17} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-dev.repo
+install -pm 644 %{SOURCE19} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
+else
 install -pm 644 %{SOURCE4} \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
 install -pm 644 %{SOURCE5} \
@@ -79,8 +100,20 @@ install -pm 644 %{SOURCE6} \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-dev.repo
 install -pm 644 %{SOURCE11} \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
+fi
 %endif
+
 %if 0%{?el6}
+%if 0%{?centos} == 6
+install -pm 644 %{SOURCE14} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
+install -pm 644 %{SOURCE16} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-testing.repo
+install -pm 644 %{SOURCE18} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-dev.repo
+install -pm 644 %{SOURCE20} \
+    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%else
 install -pm 644 %{SOURCE7} \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
 install -pm 644 %{SOURCE8} \
@@ -89,6 +122,7 @@ install -pm 644 %{SOURCE9} \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-dev.repo
 install -pm 644 %{SOURCE12} \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%endif
 %endif
 
 %if 0%{?el4}
@@ -136,6 +170,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Mar 25 2013 Jeffrey Ness <jeffrey.ness@rackspace.com> - 1.0-11.ius
+- Adding repo files for CentOS
+- Adding checks to place repo files for CentOS
+
 * Tue Feb 14 2012 BJ Dierkes <wdierkes@rackspace.com> - 1.0-10.ius
 - Add trailing slash in yum configs to prevent 301 redirects on dMirr.
 
