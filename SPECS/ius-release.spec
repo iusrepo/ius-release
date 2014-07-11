@@ -12,15 +12,12 @@ URL:            http://dl.iuscommunity.org/pub/ius
 
 Source0:        http://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-GPG-KEY 
 Source1:        IUS-COMMUNITY-EUA
-Source2:        ius.repo.el4
-Source3:        ius-testing.repo.el4
 Source4:        ius.repo.el5
 Source5:        ius-testing.repo.el5
 Source6:        ius-dev.repo.el5
 Source7:        ius.repo.el6
 Source8:        ius-testing.repo.el6
 Source9:        ius-dev.repo.el6
-Source10:       ius-archive.repo.el4
 Source11:       ius-archive.repo.el5
 Source12:       ius-archive.repo.el6
 
@@ -39,9 +36,6 @@ BuildArch:      noarch
 Provides:       ius
 Requires:       epel-release
 
-%if 0%{?el4}
-Requires:       redhat-release >= 4
-%endif
 %if 0%{?el5}
 Requires:       redhat-release >= 5
 %endif
@@ -52,7 +46,7 @@ Requires:       redhat-release >= 6
 
 %description
 This package contains the IUS Community Project (IUS) repository
-GPG key as well as configuration for yum%{?el4: and up2date}.
+GPG key as well as configuration for yum.
 
 
 %prep
@@ -73,15 +67,6 @@ install -Dpm 644 %{SOURCE0} \
 
 # yum
 install -dm 755 $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
-
-%if 0%{?el4}
-install -pm 644 %{SOURCE2} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
-install -pm 644 %{SOURCE3} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-testing.repo
-install -pm 644 %{SOURCE10} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
-%endif
 
 %if 0%{?el5}
 if [ %{?dist} == .centos5 ] # hacky...
@@ -126,39 +111,6 @@ install -pm 644 %{SOURCE9} \
 install -pm 644 %{SOURCE12} \
     $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
 %endif
-%endif
-
-%if 0%{?el4}
-%post
-if [ $1 = 1 ]; then
-    RHN_SOURCES=/etc/sysconfig/rhn/sources
-    if [ -e ${RHN_SOURCES} ]; then
-        if ! grep -q "^#DONT UPDATE %{name}" ${RHN_SOURCES} > /dev/null 2>&1; then
-        # remove existing config
-        perl -n -i -e 'print if not /^#BEGIN %{name}/ ... /^#END %{name}/' ${RHN_SOURCES}
-
-        # add updated config unless user specifies not to
-        echo "#BEGIN %{name}" >> ${RHN_SOURCES}
-        echo "# This block is managed by the %{name} RPM." >> ${RHN_SOURCES}
-        echo "" >> ${RHN_SOURCES}
-        echo "yum IUS http://dl.iuscommunity.org/pub/ius/stable/Redhat/4/\$ARCH" >> ${RHN_SOURCES}
-        echo "" >> ${RHN_SOURCES}
-        echo "#END %{name}" >> ${RHN_SOURCES}
-        fi
-    fi
-fi
-exit 0
-
-
-%postun 
-RHN_SOURCES=/etc/sysconfig/rhn/sources
-if [ $1 = 0 ]; then 
- # remove up2date config here
-  if [ -e $RHN_SOURCES ]; then
-    perl -n -i -e 'print if not /^#BEGIN %{name}/ ... /^#END %{name}/' ${RHN_SOURCES}
-  fi
-fi
-exit 0
 %endif
 
 
