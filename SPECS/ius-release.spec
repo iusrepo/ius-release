@@ -10,8 +10,8 @@ License:        IUS Community Project End User Agreement
 Vendor:         IUS Community Project
 URL:            http://dl.iuscommunity.org/pub/ius
 
-Source0:        http://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-GPG-KEY 
-Source1:        IUS-COMMUNITY-EUA
+Source0:        http://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-GPG-KEY
+Source1:        http://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-EUA
 Source4:        ius.repo.el5
 Source5:        ius-testing.repo.el5
 Source6:        ius-dev.repo.el5
