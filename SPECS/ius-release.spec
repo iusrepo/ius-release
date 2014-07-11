@@ -121,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc IUS-COMMUNITY-EUA 
 %config(noreplace) /etc/yum.repos.d/*
-/etc/pki/rpm-gpg/*
+/etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
 
 %changelog
