@@ -34,13 +34,12 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
 Provides:       ius = %{version}
-Requires:       epel-release
 
 %if 0%{?el5}
-Requires:       redhat-release >= 5
+Requires:       epel-release = 5
 %endif
 %if 0%{?el6}
-Requires:       redhat-release >= 6
+Requires:       epel-release = 6
 %endif
 
 
