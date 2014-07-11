@@ -1,6 +1,6 @@
 
 Name:           ius-release       
-Version:        1.0 
+Version:        1.0
 Release:        11.ius%{?dist}
 
 Summary:        IUS Community Project repository configuration
@@ -12,14 +12,14 @@ URL:            http://dl.iuscommunity.org/pub/ius
 
 Source0:        http://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-GPG-KEY 
 Source1:        IUS-COMMUNITY-EUA
-Source2:        ius.repo.el4	
+Source2:        ius.repo.el4
 Source3:        ius-testing.repo.el4
 Source4:        ius.repo.el5
-Source5:        ius-testing.repo.el5	
-Source6:        ius-dev.repo.el5	
+Source5:        ius-testing.repo.el5
+Source6:        ius-dev.repo.el5
 Source7:        ius.repo.el6
 Source8:        ius-testing.repo.el6
-Source9:        ius-dev.repo.el6	
+Source9:        ius-dev.repo.el6
 Source10:       ius-archive.repo.el4
 Source11:       ius-archive.repo.el5
 Source12:       ius-archive.repo.el6
@@ -49,14 +49,17 @@ Requires:       redhat-release >= 5
 Requires:       redhat-release >= 6
 %endif
 
+
 %description
 This package contains the IUS Community Project (IUS) repository
 GPG key as well as configuration for yum%{?el4: and up2date}.
 
+
 %prep
-%setup -q  -c -T
+%setup -q -c -T
 install -pm 644 %{SOURCE0} .
 install -pm 644 %{SOURCE1} .
+
 
 %build
 
@@ -161,6 +164,7 @@ exit 0
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %files
 %defattr(-,root,root,-)
