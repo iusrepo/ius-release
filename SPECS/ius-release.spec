@@ -50,71 +50,71 @@ GPG key as well as configuration for yum.
 
 %prep
 %setup -q -c -T
-install -pm 644 %{SOURCE0} .
-install -pm 644 %{SOURCE1} .
+%{__install} -pm 644 %{SOURCE0} .
+%{__install} -pm 644 %{SOURCE1} .
 
 
 %build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
+%{__rm} -rf %{buildroot}
 
 #GPG Key
-install -Dpm 644 %{SOURCE0} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+%{__install} -Dpm 644 %{SOURCE0} \
+    %{buildroot}/%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
 # yum
-install -dm 755 $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
+%{__install} -dm 755 %{buildroot}/%{_sysconfdir}/yum.repos.d
 
 %if 0%{?el5}
 if [ %{?dist} == .centos5 ] # hacky...
 then
-install -pm 644 %{SOURCE13} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
-install -pm 644 %{SOURCE15} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-testing.repo
-install -pm 644 %{SOURCE17} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-dev.repo
-install -pm 644 %{SOURCE19} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%{__install} -pm 644 %{SOURCE13} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
+%{__install} -pm 644 %{SOURCE15} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
+%{__install} -pm 644 %{SOURCE17} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
+%{__install} -pm 644 %{SOURCE19} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
 else
-install -pm 644 %{SOURCE4} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
-install -pm 644 %{SOURCE5} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-testing.repo
-install -pm 644 %{SOURCE6} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-dev.repo
-install -pm 644 %{SOURCE11} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%{__install} -pm 644 %{SOURCE4} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
+%{__install} -pm 644 %{SOURCE5} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
+%{__install} -pm 644 %{SOURCE6} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
+%{__install} -pm 644 %{SOURCE11} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
 fi
 %endif
 
 %if 0%{?el6}
 %if 0%{?centos} == 6
-install -pm 644 %{SOURCE14} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
-install -pm 644 %{SOURCE16} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-testing.repo
-install -pm 644 %{SOURCE18} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-dev.repo
-install -pm 644 %{SOURCE20} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%{__install} -pm 644 %{SOURCE14} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
+%{__install} -pm 644 %{SOURCE16} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
+%{__install} -pm 644 %{SOURCE18} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
+%{__install} -pm 644 %{SOURCE20} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
 %else
-install -pm 644 %{SOURCE7} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius.repo
-install -pm 644 %{SOURCE8} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-testing.repo
-install -pm 644 %{SOURCE9} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-dev.repo
-install -pm 644 %{SOURCE12} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%{__install} -pm 644 %{SOURCE7} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
+%{__install} -pm 644 %{SOURCE8} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
+%{__install} -pm 644 %{SOURCE9} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
+%{__install} -pm 644 %{SOURCE12} \
+    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
 %endif
 %endif
 
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%{__rm} -rf %{buildroot}
 
 
 %files
