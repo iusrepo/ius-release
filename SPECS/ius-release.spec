@@ -33,7 +33,7 @@ Source20:       ius-archive.repo.centos6
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
-Provides:       ius
+Provides:       ius = %{version}
 Requires:       epel-release
 
 %if 0%{?el5}
