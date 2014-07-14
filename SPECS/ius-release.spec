@@ -1,3 +1,7 @@
+# custom macro needed because of inconsistent macros in CentOS
+# %%centos is undefined on CentOS 5
+# %%dist ends in .centos only on CentOS 5 and 7, but not 6
+%global iscentos %(rpm -q --quiet centos-release && echo 1 || echo 0)
 
 Name:               ius-release
 Version:            1.0
@@ -9,22 +13,10 @@ Vendor:             IUS Community Project
 URL:                http://dl.iuscommunity.org/pub/ius/
 Source0:            IUS-COMMUNITY-GPG-KEY
 Source1:            IUS-COMMUNITY-EUA
-Source4:            ius.repo.el5
-Source5:            ius-testing.repo.el5
-Source6:            ius-dev.repo.el5
-Source7:            ius.repo.el6
-Source8:            ius-testing.repo.el6
-Source9:            ius-dev.repo.el6
-Source11:           ius-archive.repo.el5
-Source12:           ius-archive.repo.el6
-Source13:           ius.repo.centos5
-Source14:           ius.repo.centos6
-Source15:           ius-testing.repo.centos5
-Source16:           ius-testing.repo.centos6
-Source17:           ius-dev.repo.centos5
-Source18:           ius-dev.repo.centos6
-Source19:           ius-archive.repo.centos5
-Source20:           ius-archive.repo.centos6
+Source2:            ius.repo.template
+Source3:            ius-testing.repo.template
+Source4:            ius-dev.repo.template
+Source5:            ius-archive.repo.template
 Provides:           ius = %{version}
 BuildArch:          noarch
 %{?el5:BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)}
@@ -44,67 +36,35 @@ GPG key as well as configuration for yum.
 
 %prep
 %setup -q -c -T
-%{__install} -pm 644 %{SOURCE0} .
-%{__install} -pm 644 %{SOURCE1} .
-
-
-%build
+# copy gpg key and eua to builddir
+%{__cp} -p %{SOURCE0} .
+%{__cp} -p %{SOURCE1} .
+# copy and rename template files to builddir
+%{__cp} %{SOURCE2} ius.repo
+%{__cp} %{SOURCE3} ius-testing.repo
+%{__cp} %{SOURCE4} ius-dev.repo
+%{__cp} %{SOURCE5} ius-archive.repo
+# insert distro and id
+%if %{?iscentos}
+%{__sed} -i 's_@DISTRO@_CentOS_' *.repo
+%{__sed} -i 's_@ID@_centos_' *.repo
+%else
+%{__sed} -i 's_@DISTRO@_Redhat_' *.repo
+%{__sed} -i 's_@ID@_el_' *.repo
+%endif
+# insert release
+%{?el5:%{__sed} -i 's_@RELEASE@_5_' *.repo}
+%{?el6:%{__sed} -i 's_@RELEASE@_6_' *.repo}
+%{?el7:%{__sed} -i 's_@RELEASE@_7_' *.repo}
 
 
 %install
 %{?el5:%{__rm} -rf %{buildroot}}
-
-#GPG Key
-%{__install} -Dpm 644 %{SOURCE0} \
-    %{buildroot}/%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
-
-# yum
-%{__install} -dm 755 %{buildroot}/%{_sysconfdir}/yum.repos.d
-
-%if 0%{?el5}
-if [ %{?dist} == .centos5 ] # hacky...
-then
-%{__install} -pm 644 %{SOURCE13} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
-%{__install} -pm 644 %{SOURCE15} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
-%{__install} -pm 644 %{SOURCE17} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
-%{__install} -pm 644 %{SOURCE19} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
-else
-%{__install} -pm 644 %{SOURCE4} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
-%{__install} -pm 644 %{SOURCE5} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
-%{__install} -pm 644 %{SOURCE6} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
-%{__install} -pm 644 %{SOURCE11} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
-fi
-%endif
-
-%if 0%{?el6}
-%if 0%{?centos} == 6
-%{__install} -pm 644 %{SOURCE14} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
-%{__install} -pm 644 %{SOURCE16} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
-%{__install} -pm 644 %{SOURCE18} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
-%{__install} -pm 644 %{SOURCE20} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
-%else
-%{__install} -pm 644 %{SOURCE7} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
-%{__install} -pm 644 %{SOURCE8} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
-%{__install} -pm 644 %{SOURCE9} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
-%{__install} -pm 644 %{SOURCE12} \
-    %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
-%endif
-%endif
+%{__install} -Dpm644 IUS-COMMUNITY-GPG-KEY %{buildroot}/%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+%{__install} -Dpm644 ius.repo         %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
+%{__install} -Dpm644 ius-testing.repo %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
+%{__install} -Dpm644 ius-dev.repo     %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
+%{__install} -Dpm644 ius-archive.repo %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
 
 
 %{?el5:%clean}
