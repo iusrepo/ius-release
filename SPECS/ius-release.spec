@@ -5,7 +5,7 @@
 
 Name:               ius-release
 Version:            1.0
-Release:            11.ius%{?dist}
+Release:            12.ius%{?dist}
 Summary:            IUS Community Project repository configuration
 Group:              System Environment/Base
 License:            IUS Community Project End User Agreement
@@ -74,6 +74,13 @@ GPG key as well as configuration for yum.
 
 
 %changelog
+* Mon Jul 14 2014 Carl George <carl.george@rackspace.com> - 1.0-12.ius
+- Deprecate el4
+- Use conditionals for el5 only sections
+- Add support for el7
+- Improve use of macros
+- Use templates for repo files, and render the template in %%prep
+
 * Mon Mar 25 2013 Jeffrey Ness <jeffrey.ness@rackspace.com> - 1.0-11.ius
 - Adding repo files for CentOS
 - Adding checks to place repo files for CentOS
