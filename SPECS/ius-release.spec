@@ -30,7 +30,7 @@ Source18:       ius-dev.repo.centos6
 Source19:       ius-archive.repo.centos5
 Source20:       ius-archive.repo.centos6
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%{?el5:BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)}
 
 BuildArch:      noarch
 Provides:       ius = %{version}
@@ -58,7 +58,7 @@ GPG key as well as configuration for yum.
 
 
 %install
-%{__rm} -rf %{buildroot}
+%{?el5:%{__rm} -rf %{buildroot}}
 
 #GPG Key
 %{__install} -Dpm 644 %{SOURCE0} \
@@ -113,12 +113,11 @@ fi
 %endif
 
 
-%clean
-%{__rm} -rf %{buildroot}
+%{?el5:%clean}
+%{?el5:%{__rm} -rf %{buildroot}}
 
 
 %files
-%defattr(-,root,root,-)
 %doc IUS-COMMUNITY-EUA 
 %config(noreplace) /etc/yum.repos.d/*
 /etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
