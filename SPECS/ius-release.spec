@@ -73,8 +73,8 @@ GPG key as well as configuration for yum.
 
 %files
 %doc IUS-COMMUNITY-EUA 
-%config(noreplace) /etc/yum.repos.d/*
-/etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+%config(noreplace) %{_sysconfdir}/yum.repos.d/*
+%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
 
 %changelog
