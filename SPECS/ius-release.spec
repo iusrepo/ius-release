@@ -1,39 +1,33 @@
 
-Name:           ius-release       
-Version:        1.0
-Release:        11.ius%{?dist}
-
-Summary:        IUS Community Project repository configuration
-
-Group:          System Environment/Base 
-License:        IUS Community Project End User Agreement 
-Vendor:         IUS Community Project
-URL:            http://dl.iuscommunity.org/pub/ius
-
-Source0:        http://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-GPG-KEY
-Source1:        http://dl.iuscommunity.org/pub/ius/IUS-COMMUNITY-EUA
-Source4:        ius.repo.el5
-Source5:        ius-testing.repo.el5
-Source6:        ius-dev.repo.el5
-Source7:        ius.repo.el6
-Source8:        ius-testing.repo.el6
-Source9:        ius-dev.repo.el6
-Source11:       ius-archive.repo.el5
-Source12:       ius-archive.repo.el6
-
-Source13:       ius.repo.centos5
-Source14:       ius.repo.centos6
-Source15:       ius-testing.repo.centos5
-Source16:       ius-testing.repo.centos6
-Source17:       ius-dev.repo.centos5	
-Source18:       ius-dev.repo.centos6	
-Source19:       ius-archive.repo.centos5
-Source20:       ius-archive.repo.centos6
-
+Name:               ius-release
+Version:            1.0
+Release:            11.ius%{?dist}
+Summary:            IUS Community Project repository configuration
+Group:              System Environment/Base
+License:            IUS Community Project End User Agreement
+Vendor:             IUS Community Project
+URL:                http://dl.iuscommunity.org/pub/ius/
+Source0:            IUS-COMMUNITY-GPG-KEY
+Source1:            IUS-COMMUNITY-EUA
+Source4:            ius.repo.el5
+Source5:            ius-testing.repo.el5
+Source6:            ius-dev.repo.el5
+Source7:            ius.repo.el6
+Source8:            ius-testing.repo.el6
+Source9:            ius-dev.repo.el6
+Source11:           ius-archive.repo.el5
+Source12:           ius-archive.repo.el6
+Source13:           ius.repo.centos5
+Source14:           ius.repo.centos6
+Source15:           ius-testing.repo.centos5
+Source16:           ius-testing.repo.centos6
+Source17:           ius-dev.repo.centos5
+Source18:           ius-dev.repo.centos6
+Source19:           ius-archive.repo.centos5
+Source20:           ius-archive.repo.centos6
+Provides:           ius = %{version}
+BuildArch:          noarch
 %{?el5:BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)}
-
-BuildArch:      noarch
-Provides:       ius = %{version}
 
 %if 0%{?el5}
 Requires:       epel-release = 5
