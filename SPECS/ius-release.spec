@@ -20,13 +20,9 @@ Source5:            ius-archive.repo.template
 Provides:           ius = %{version}
 BuildArch:          noarch
 %{?el5:BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)}
-
-%if 0%{?el5}
-Requires:       epel-release = 5
-%endif
-%if 0%{?el6}
-Requires:       epel-release = 6
-%endif
+%{?el5:Requires:    epel-release = 5}
+%{?el6:Requires:    epel-release = 6}
+%{?el7:Requires:    epel-release = 7}
 
 
 %description
