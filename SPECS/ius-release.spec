@@ -1,8 +1,3 @@
-# custom macro needed because of inconsistent macros in CentOS
-# %%centos is undefined on CentOS 5
-# %%dist ends in .centos only on CentOS 5 and 7, but not 6
-%global iscentos %(rpm -q --quiet centos-release && echo 1 || echo 0)
-
 Name:               ius-release
 Version:            1.0
 Release:            12.ius%{?dist}
@@ -40,8 +35,10 @@ GPG key as well as configuration for yum.
 %{__cp} %{SOURCE3} ius-testing.repo
 %{__cp} %{SOURCE4} ius-dev.repo
 %{__cp} %{SOURCE5} ius-archive.repo
+# %centos is undefined on CentOS 5, must be set in build system
+# mock configuration:  config_opts['macros']['%centos'] = '5'
 # insert distro and id
-%if %{?iscentos}
+%if 0%{?centos}
 %{__sed} -i 's_@DISTRO@_CentOS_' *.repo
 %{__sed} -i 's_@ID@_centos_' *.repo
 %else
