@@ -1,6 +1,6 @@
 Name:               ius-release
 Version:            1.0
-Release:            12.ius%{?dist}
+Release:            13.ius%{?dist}
 Summary:            IUS Community Project repository configuration
 Group:              System Environment/Base
 License:            IUS Community Project End User Agreement
@@ -71,6 +71,10 @@ GPG key as well as configuration for yum.
 
 
 %changelog
+* Tue Aug 05 2014 Carl George <carl.george@rackspace.com> - 1.0-13.ius
+- Don't use $basearch for source repos
+- Enable mirrorlist for archive repos
+
 * Mon Jul 14 2014 Carl George <carl.george@rackspace.com> - 1.0-12.ius
 - Deprecate el4
 - Use conditionals for el5 only sections
