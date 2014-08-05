@@ -8,7 +8,7 @@ gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
 [ius-dev-debuginfo]
-name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Dev Debug Info 
+name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Dev Debug Info
 #baseurl=http://dl.iuscommunity.org/pub/ius/development/@DISTRO@/@RELEASE@/$basearch/debuginfo
 mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-dev-debuginfo&arch=$basearch
 failovermethod=priority
