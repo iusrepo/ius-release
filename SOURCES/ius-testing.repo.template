@@ -19,7 +19,7 @@ gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 [ius-testing-source]
 name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Testing Source
 #baseurl=http://dl.iuscommunity.org/pub/ius/testing/@DISTRO@/@RELEASE@/SRPMS
-mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-testing-source&arch=$basearch
+mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-testing-source&arch=source
 failovermethod=priority
 enabled=0
 gpgcheck=1

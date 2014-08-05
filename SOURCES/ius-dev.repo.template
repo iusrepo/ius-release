@@ -19,7 +19,7 @@ gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 [ius-dev-source]
 name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Dev Source
 #baseurl=http://dl.iuscommunity.org/pub/ius/development/@DISTRO@/@RELEASE@/SRPMS
-mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-dev-source&arch=$basearch
+mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-dev-source&arch=source
 failovermethod=priority
 enabled=0
 gpgcheck=1
