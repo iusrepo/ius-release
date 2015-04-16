@@ -1,6 +1,6 @@
 [ius-archive]
 name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Archive
-#baseurl=http://dl.iuscommunity.org/pub/ius/archive/@DISTRO@/@RELEASE@/$basearch
+#baseurl=https://dl.iuscommunity.org/pub/ius/archive/@DISTRO@/@RELEASE@/$basearch
 mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-archive&arch=$basearch
 failovermethod=priority
 enabled=0
@@ -9,7 +9,7 @@ gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
 [ius-archive-debuginfo]
 name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Archive Debug
-#baseurl=http://dl.iuscommunity.org/pub/ius/archive/@DISTRO@/@RELEASE@/$basearch/debuginfo
+#baseurl=https://dl.iuscommunity.org/pub/ius/archive/@DISTRO@/@RELEASE@/$basearch/debuginfo
 mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-archive-debuginfo&arch=$basearch
 failovermethod=priority
 enabled=0
@@ -18,7 +18,7 @@ gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
 [ius-archive-source]
 name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Archive Source
-#baseurl=http://dl.iuscommunity.org/pub/ius/archive/@DISTRO@/@RELEASE@/SRPMS
+#baseurl=https://dl.iuscommunity.org/pub/ius/archive/@DISTRO@/@RELEASE@/SRPMS
 mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-archive-source&arch=source
 failovermethod=priority
 enabled=0

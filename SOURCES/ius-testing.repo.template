@@ -1,6 +1,6 @@
 [ius-testing]
 name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Testing
-#baseurl=http://dl.iuscommunity.org/pub/ius/testing/@DISTRO@/@RELEASE@/$basearch
+#baseurl=https://dl.iuscommunity.org/pub/ius/testing/@DISTRO@/@RELEASE@/$basearch
 mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-testing&arch=$basearch
 failovermethod=priority
 enabled=0
@@ -9,7 +9,7 @@ gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
 [ius-testing-debuginfo]
 name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Testing Debug
-#baseurl=http://dl.iuscommunity.org/pub/ius/testing/@DISTRO@/@RELEASE@/$basearch/debuginfo
+#baseurl=https://dl.iuscommunity.org/pub/ius/testing/@DISTRO@/@RELEASE@/$basearch/debuginfo
 mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-testing-debuginfo&arch=$basearch
 failovermethod=priority
 enabled=0
@@ -18,7 +18,7 @@ gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
 [ius-testing-source]
 name=IUS Community Packages for Enterprise Linux @RELEASE@ - $basearch - Testing Source
-#baseurl=http://dl.iuscommunity.org/pub/ius/testing/@DISTRO@/@RELEASE@/SRPMS
+#baseurl=https://dl.iuscommunity.org/pub/ius/testing/@DISTRO@/@RELEASE@/SRPMS
 mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-@ID@@RELEASE@-testing-source&arch=source
 failovermethod=priority
 enabled=0
