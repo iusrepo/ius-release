@@ -1,7 +1,7 @@
 [ius-testing]
 name=IUS Community Packages for Enterprise Linux 6 - $basearch - Testing
 #baseurl=http://dl.iuscommunity.org/pub/ius/testing/CentOS/6/$basearch
-mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-centos6-testing&arch=$basearch
+mirrorlist=https://mirrors.iuscommunity.org/mirrorlist?repo=ius-centos6-testing&arch=$basearch&protocol=http
 failovermethod=priority
 enabled=0
 gpgcheck=1
@@ -10,7 +10,7 @@ gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 [ius-testing-debuginfo]
 name=IUS Community Packages for Enterprise Linux 6 - $basearch - Testing Debug
 #baseurl=http://dl.iuscommunity.org/pub/ius/testing/CentOS/6/$basearch/debuginfo
-mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-centos6-testing-debuginfo&arch=$basearch
+mirrorlist=https://mirrors.iuscommunity.org/mirrorlist?repo=ius-centos6-testing-debuginfo&arch=$basearch&protocol=http
 failovermethod=priority
 enabled=0
 gpgcheck=1
@@ -19,7 +19,7 @@ gpgkey=file:///etc/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 [ius-testing-source]
 name=IUS Community Packages for Enterprise Linux 6 - $basearch - Testing Source
 #baseurl=http://dl.iuscommunity.org/pub/ius/testing/CentOS/6/SRPMS
-mirrorlist=http://dmirr.iuscommunity.org/mirrorlist/?repo=ius-centos6-testing-source&arch=source
+mirrorlist=https://mirrors.iuscommunity.org/mirrorlist?repo=ius-centos6-testing-source&arch=source&protocol=http
 failovermethod=priority
 enabled=0
 gpgcheck=1
