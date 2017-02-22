@@ -53,11 +53,11 @@ GPG key as well as configuration for yum.
 
 %install
 %{?el5:%{__rm} -rf %{buildroot}}
-%{__install} -Dpm644 IUS-COMMUNITY-GPG-KEY %{buildroot}/%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
-%{__install} -Dpm644 ius.repo         %{buildroot}/%{_sysconfdir}/yum.repos.d/ius.repo
-%{__install} -Dpm644 ius-testing.repo %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-testing.repo
-%{__install} -Dpm644 ius-dev.repo     %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-dev.repo
-%{__install} -Dpm644 ius-archive.repo %{buildroot}/%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%{__install} -Dpm644 IUS-COMMUNITY-GPG-KEY %{buildroot}%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+%{__install} -Dpm644 ius.repo         %{buildroot}%{_sysconfdir}/yum.repos.d/ius.repo
+%{__install} -Dpm644 ius-testing.repo %{buildroot}%{_sysconfdir}/yum.repos.d/ius-testing.repo
+%{__install} -Dpm644 ius-dev.repo     %{buildroot}%{_sysconfdir}/yum.repos.d/ius-dev.repo
+%{__install} -Dpm644 ius-archive.repo %{buildroot}%{_sysconfdir}/yum.repos.d/ius-archive.repo
 
 
 %{?el5:%clean}
