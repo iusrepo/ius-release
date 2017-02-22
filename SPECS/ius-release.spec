@@ -65,7 +65,7 @@ GPG key as well as configuration for yum.
 
 
 %files
-%doc IUS-COMMUNITY-EUA 
+%doc IUS-COMMUNITY-EUA
 %config(noreplace) %{_sysconfdir}/yum.repos.d/*
 %{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 
@@ -94,7 +94,7 @@ GPG key as well as configuration for yum.
 - Add trailing slash in yum configs to prevent 301 redirects on dMirr.
 
 * Mon Jan 16 2012 Jeffrey Ness <jeffrey.ness@rackspace.com> - 1.0-9.ius
-- Adding a disabled repo for archive, this will help with 
+- Adding a disabled repo for archive, this will help with
   yum history undo: https://bugs.launchpad.net/ius/+bug/916943
 
 * Mon Jul 11 2011 Jeffrey Ness <jeffrey.ness@rackspace.com> - 1.0-8.ius
