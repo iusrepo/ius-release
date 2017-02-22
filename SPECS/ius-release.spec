@@ -1,6 +1,6 @@
 Name:               ius-release
 Version:            1.0
-Release:            14.ius%{?dist}
+Release:            15.ius%{?dist}
 Summary:            IUS Community Project repository configuration
 Group:              System Environment/Base
 License:            IUS Community Project End User Agreement
@@ -28,8 +28,7 @@ GPG key as well as configuration for yum.
 %prep
 %setup -q -c -T
 # copy gpg key and eua to builddir
-%{__cp} -p %{SOURCE0} .
-%{__cp} -p %{SOURCE1} .
+%{__cp} %{SOURCE0} %{SOURCE1} .
 # copy and rename template files to builddir
 %{__cp} %{SOURCE2} ius.repo
 %{__cp} %{SOURCE3} ius-testing.repo
@@ -71,6 +70,9 @@ GPG key as well as configuration for yum.
 
 
 %changelog
+* Wed Feb 22 2017 Carl George <carl.george@rackspace.com> - 1.0-15.ius
+- Don't preserve permissions in %%prep (see GH#4)
+
 * Mon Apr 06 2015 Carl George <carl.george@rackspace.com> - 1.0-14.ius
 - Switch to new mirrorlist endpoint url
 - Switch baseurl (commented out) to https
