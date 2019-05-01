@@ -1,63 +1,65 @@
-Name:               ius-release
-Version:            1.0
-Release:            15.ius%{?dist}
-Summary:            IUS Community Project repository configuration
-License:            IUS Community Project End User Agreement
-Vendor:             IUS Community Project
-URL:                http://dl.iuscommunity.org/pub/ius/
-Source0:            IUS-COMMUNITY-GPG-KEY
-Source1:            IUS-COMMUNITY-EUA
-Source2:            ius.repo.template
-Source3:            ius-testing.repo.template
-Source4:            ius-dev.repo.template
-Source5:            ius-archive.repo.template
-Provides:           ius = %{version}
-BuildArch:          noarch
-%{?el6:Requires:    epel-release = 6}
-%{?el7:Requires:    epel-release = 7}
+Name:           ius-release
+Version:        2
+Release:        1%{?dist}
+Summary:        IUS repository configuration
+License:        MIT
+URL:            https://ius.io
+
+Source0:        LICENSE
+
+Source10:       https://repo.ius.io/RPM-GPG-KEY-IUS-6
+Source11:       ius-6.repo
+Source12:       ius-testing-6.repo
+Source13:       ius-archive-6.repo
+
+Source20:       https://repo.ius.io/RPM-GPG-KEY-IUS-7
+Source21:       ius-7.repo
+Source22:       ius-testing-7.repo
+Source23:       ius-archive-7.repo
+
+BuildArch:      noarch
+
+%{?el6:Requires: epel-release = 6}
+%{?el7:Requires: epel-release = 7}
 
 
 %description
-This package contains the IUS Community Project (IUS) repository
-GPG key as well as configuration for yum.
+This package contains the IUS repository GPG key as well as configuration for
+yum.
 
 
 %prep
 %setup -q -c -T
-# copy gpg key and eua to builddir
-%{__cp} %{SOURCE0} %{SOURCE1} .
-# copy and rename template files to builddir
-%{__cp} %{SOURCE2} ius.repo
-%{__cp} %{SOURCE3} ius-testing.repo
-%{__cp} %{SOURCE4} ius-dev.repo
-%{__cp} %{SOURCE5} ius-archive.repo
-%if 0%{?centos}
-%{__sed} -i 's_@DISTRO@_CentOS_' *.repo
-%{__sed} -i 's_@ID@_centos_' *.repo
-%else
-%{__sed} -i 's_@DISTRO@_Redhat_' *.repo
-%{__sed} -i 's_@ID@_el_' *.repo
-%endif
-# insert release
-%{?el6:%{__sed} -i 's_@RELEASE@_6_' *.repo}
-%{?el7:%{__sed} -i 's_@RELEASE@_7_' *.repo}
+install -p -m 0644 %{S:0} .
 
 
 %install
-%{__install} -Dpm644 IUS-COMMUNITY-GPG-KEY %{buildroot}%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
-%{__install} -Dpm644 ius.repo         %{buildroot}%{_sysconfdir}/yum.repos.d/ius.repo
-%{__install} -Dpm644 ius-testing.repo %{buildroot}%{_sysconfdir}/yum.repos.d/ius-testing.repo
-%{__install} -Dpm644 ius-dev.repo     %{buildroot}%{_sysconfdir}/yum.repos.d/ius-dev.repo
-%{__install} -Dpm644 ius-archive.repo %{buildroot}%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%if %{defined el6}
+install -D -p -m 0644 %{S:10} %{buildroot}%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-IUS-6
+install -D -p -m 0644 %{S:11} %{buildroot}%{_sysconfdir}/yum.repos.d/ius.repo
+install -D -p -m 0644 %{S:12} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-testing.repo
+install -D -p -m 0644 %{S:13} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%endif
+%if %{defined el7}
+install -D -p -m 0644 %{S:20} %{buildroot}%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-IUS-7
+install -D -p -m 0644 %{S:21} %{buildroot}%{_sysconfdir}/yum.repos.d/ius.repo
+install -D -p -m 0644 %{S:22} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-testing.repo
+install -D -p -m 0644 %{S:23} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-archive.repo
+%endif
 
 
 %files
-%doc IUS-COMMUNITY-EUA
-%config(noreplace) %{_sysconfdir}/yum.repos.d/*
-%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
+%license LICENSE
+%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-IUS-*
+%config(noreplace) %{_sysconfdir}/yum.repos.d/ius.repo
+%config(noreplace) %{_sysconfdir}/yum.repos.d/ius-testing.repo
+%config(noreplace) %{_sysconfdir}/yum.repos.d/ius-archive.repo
 
 
 %changelog
+* Wed May 01 2019 Carl George <carl@george.computer> - 2-1
+- Switch from IUS mirrorlist service to CDN
+
 * Wed Feb 22 2017 Carl George <carl.george@rackspace.com> - 1.0-15.ius
 - Don't preserve permissions in %%prep (see GH#4)
 
