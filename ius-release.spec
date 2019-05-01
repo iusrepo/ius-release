@@ -2,7 +2,6 @@ Name:               ius-release
 Version:            1.0
 Release:            15.ius%{?dist}
 Summary:            IUS Community Project repository configuration
-Group:              System Environment/Base
 License:            IUS Community Project End User Agreement
 Vendor:             IUS Community Project
 URL:                http://dl.iuscommunity.org/pub/ius/
@@ -14,8 +13,6 @@ Source4:            ius-dev.repo.template
 Source5:            ius-archive.repo.template
 Provides:           ius = %{version}
 BuildArch:          noarch
-%{?el5:BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)}
-%{?el5:Requires:    epel-release = 5}
 %{?el6:Requires:    epel-release = 6}
 %{?el7:Requires:    epel-release = 7}
 
@@ -34,9 +31,6 @@ GPG key as well as configuration for yum.
 %{__cp} %{SOURCE3} ius-testing.repo
 %{__cp} %{SOURCE4} ius-dev.repo
 %{__cp} %{SOURCE5} ius-archive.repo
-# %centos is undefined on CentOS 5, must be set in build system
-# mock configuration:  config_opts['macros']['%centos'] = '5'
-# insert distro and id
 %if 0%{?centos}
 %{__sed} -i 's_@DISTRO@_CentOS_' *.repo
 %{__sed} -i 's_@ID@_centos_' *.repo
@@ -45,22 +39,16 @@ GPG key as well as configuration for yum.
 %{__sed} -i 's_@ID@_el_' *.repo
 %endif
 # insert release
-%{?el5:%{__sed} -i 's_@RELEASE@_5_' *.repo}
 %{?el6:%{__sed} -i 's_@RELEASE@_6_' *.repo}
 %{?el7:%{__sed} -i 's_@RELEASE@_7_' *.repo}
 
 
 %install
-%{?el5:%{__rm} -rf %{buildroot}}
 %{__install} -Dpm644 IUS-COMMUNITY-GPG-KEY %{buildroot}%{_sysconfdir}/pki/rpm-gpg/IUS-COMMUNITY-GPG-KEY
 %{__install} -Dpm644 ius.repo         %{buildroot}%{_sysconfdir}/yum.repos.d/ius.repo
 %{__install} -Dpm644 ius-testing.repo %{buildroot}%{_sysconfdir}/yum.repos.d/ius-testing.repo
 %{__install} -Dpm644 ius-dev.repo     %{buildroot}%{_sysconfdir}/yum.repos.d/ius-dev.repo
 %{__install} -Dpm644 ius-archive.repo %{buildroot}%{_sysconfdir}/yum.repos.d/ius-archive.repo
-
-
-%{?el5:%clean}
-%{?el5:%{__rm} -rf %{buildroot}}
 
 
 %files
