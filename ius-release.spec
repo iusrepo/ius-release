@@ -17,6 +17,9 @@ Source21:       ius-7.repo
 Source22:       ius-testing-7.repo
 Source23:       ius-archive-7.repo
 
+Source30:	ius-6-x86_64.cfg
+Source31:	ius-7-x86_64.cfg
+
 BuildArch:      noarch
 
 %{?el6:Requires: epel-release = 6}
@@ -39,12 +42,14 @@ install -D -p -m 0644 %{S:10} %{buildroot}%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY
 install -D -p -m 0644 %{S:11} %{buildroot}%{_sysconfdir}/yum.repos.d/ius.repo
 install -D -p -m 0644 %{S:12} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-testing.repo
 install -D -p -m 0644 %{S:13} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-archive.repo
+install -Dm0644 %{S:30} %{buildroot}%{_sysconfdir}/mock/ius-6-x86_64.cfg
 %endif
 %if %{defined el7}
 install -D -p -m 0644 %{S:20} %{buildroot}%{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-IUS-7
 install -D -p -m 0644 %{S:21} %{buildroot}%{_sysconfdir}/yum.repos.d/ius.repo
 install -D -p -m 0644 %{S:22} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-testing.repo
 install -D -p -m 0644 %{S:23} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-archive.repo
+install -Dm0644 %{S:31} %{buildroot}%{_sysconfdir}/mock/ius-7-x86_64.cfg
 %endif
 
 
@@ -56,7 +61,31 @@ install -D -p -m 0644 %{S:23} %{buildroot}%{_sysconfdir}/yum.repos.d/ius-archive
 %config(noreplace) %{_sysconfdir}/yum.repos.d/ius-archive.repo
 
 
+%package -n ius-mock-cfg
+Version:	1
+Summary:	IUS configuration file for use with mock
+BuildArch:	noarch
+
+Requires:	mock
+
+
+%description -n	ius-mock-cfg
+%{summary}
+
+
+%files -n ius-mock-cfg
+%if %{defined el6}
+%config(noreplace) %{_sysconfdir}/mock/ius-6-x86_64.cfg
+%endif
+%if %{defined el7}
+%config(noreplace) %{_sysconfdir}/mock/ius-7-x86_64.cfg
+%endif
+
+
 %changelog
+* Wed May 15 2019 evitalis <evitalis@users.noreply.github.com> - 2-2
+- Add subpackage for IUS mock configuration
+
 * Wed May 01 2019 Carl George <carl@george.computer> - 2-1
 - Switch from IUS mirrorlist service to CDN
 
